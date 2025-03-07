@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>File List</h1>
+    <form method="get" action="/">
+        <label for="root">Root Folder:</label>
+        <input type="text" id="root" name="root" value="{{ root }}">
+        <label for="sort_by">Sort By:</label>
+        <select id="sort_by" name="sort_by">
+            <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+            <option value="size" {% if sort_by == 'size' %}selected{% endif %}>Size</option>
+            <option value="extension" {% if sort_by == 'extension' %}selected{% endif %}>Extension</option>
+        </select>
+        <input type="submit" value="Sort">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for path, type in files_and_folders %}
+                <tr>
+                    <td><a href="{{ path }}">{{ path }}</a></td>
+                    <td>{{ type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
